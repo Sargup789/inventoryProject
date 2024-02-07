@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { InventoryData } from "../../pages";
 import DashboardTable from "./Dashboardtable";
+import { Typography } from "@mui/material";
 
 type Props = {
     data: InventoryData[];
@@ -14,7 +15,7 @@ const DashboardIndex = ({ data }: Props) => {
     return (
         <QueryClientProvider client={queryClient}>
             <div className="m-6">
-                <br />
+                <Typography><h2>Inventory stats</h2></Typography>
                 <DashboardTable data={data}/>
             </div>
         </QueryClientProvider>
