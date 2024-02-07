@@ -22,6 +22,15 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
     const outOfStockCount = data.filter(item => item.quantity === 0).length;
     const totalProductCount = data.length;
 
+    const calculateValue = (price: string, quantity: number): number => {
+        const priceNumber = parseFloat(price.replace('$', ''));
+        return isNaN(priceNumber) ? 0 : priceNumber * quantity;
+    };
+
+    const totalStoreValue = data.reduce((total, item) => {
+        return total + calculateValue(item.price, item.quantity);
+    }, 0);
+
     return (
         <>
             <Box
@@ -48,7 +57,7 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                 <Card>
                     <CardContent>
                         <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-                            <b>Total store value</b>
+                            <b>Total store value: ${totalStoreValue.toFixed(2)}</b>
                         </Typography>
                     </CardContent>
                 </Card>
@@ -92,7 +101,7 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                                         {el.price}
                                     </TableCell>
                                     <TableCell align='center'>{el.quantity}</TableCell>
-                                    <TableCell align='center'>{el.value}</TableCell>
+                                    <TableCell align='center'>${calculateValue(el.price, el.quantity)}</TableCell>
                                     <TableCell align='center'>
                                         <Tooltip title="View" followCursor>
                                             <IconButton
