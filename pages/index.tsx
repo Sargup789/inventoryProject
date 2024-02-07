@@ -1,5 +1,14 @@
 import axios from "axios";
-import { UseQueryResult, useQuery } from "react-query";
+import { useEffect, useState } from "react";
+import DashboardIndex from "../component/Dashboard";
+
+export interface InventoryData {
+     name: string;
+    category: string;
+    value: string;
+    quantity: number;
+    price: string;
+}
 
 export const fetchInventory = async () => {
     console.log("fetchData", process.env.ROOT_URL);
@@ -10,21 +19,34 @@ export const fetchInventory = async () => {
 
 const index = () => {
 
-    const {
-        data: inventory,
-        isLoading,
-        refetch,
-    }: UseQueryResult<unknown> = useQuery(["inventory"], () => fetchInventory(), {
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-    });
+    const [inventories, setInventories] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
+                const data = await fetchInventory();
+                setInventories(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []); 
 
     return (
         <>
-            {isLoading || !inventory ? (
+        {console.log(inventories, "inv")}
+            {isLoading || !inventories ? (
                 "Loading..."
             ) : (
-                ""
+                <DashboardIndex 
+                data={inventories}
+                />
             )}
         </>
 
