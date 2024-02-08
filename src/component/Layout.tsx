@@ -6,7 +6,7 @@ import React, { ReactNode } from 'react'
 type Props = { children: ReactNode }
 
 const Layout = ({ children }: Props) => {
-  const [isAdmin, setIsAdmin] = React.useState(true);
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsAdmin(event.target.checked);

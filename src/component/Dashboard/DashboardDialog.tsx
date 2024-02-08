@@ -30,6 +30,11 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
 }) => {
     const isEditMode = Object.keys(inventoryDialogData).length > 0;
 
+    const calculateValue = (price: string, quantity: number): number => {
+        const priceNumber = parseFloat(price?.replace('$', ''));
+        return isNaN(priceNumber) ? 0 : priceNumber * quantity;
+    };
+
     return (
         <Dialog maxWidth="sm" fullWidth open={open} onClose={handleClose}>
             <DialogTitle
@@ -45,7 +50,7 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
                         alignItems: "center",
                     }}
                 >
-                    {isEditMode ? "Edit" : "View"} product
+                    {isEditMode ? "Edit" : "View"} product : {(inventoryDialogData as InventoryData)?.name}
                 </Box>
                 <IconButton
                     children={<HighlightOff />}
@@ -115,9 +120,9 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
                                         <Box>
                                             <Typography className="label">Value</Typography>
                                             <TextField
-                                                {...input}
                                                 fullWidth
                                                 size="small"
+                                                value={calculateValue(values.price, values.quantity)}
                                                 placeholder="Enter value"
                                             />
                                         </Box>
@@ -128,7 +133,7 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
                                 {!isViewMode && <Button
                                     style={{
                                         borderRadius: 15,
-                                        backgroundColor: "#E96820",
+                                        backgroundColor: "#90EE90",
                                         fontSize: "13px"
                                     }}
                                     variant="contained"
