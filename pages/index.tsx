@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DashboardIndex from "../src/component/Dashboard";
 
 export interface InventoryData {
+    id: string;
      name: string;
     category: string;
     value: string;

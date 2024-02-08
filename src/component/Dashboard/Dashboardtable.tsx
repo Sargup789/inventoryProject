@@ -165,7 +165,10 @@ export default function DashboardTable({ data, editInventory, viewInventory, del
                                                 size="small"
                                                 sx={{ color: 'green', mr: 0.5 }}
                                                 disabled={isRowDisabled(index) || isAdmin}
-                                                onClick={() => editInventory(el as InventoryData)}
+                                                onClick={() => {
+                                                    editInventory(el as InventoryData); // Call editInventory function
+                                                    viewInventory(el as InventoryData); // Open dialog for editing
+                                                }}
                                                 children={<EditOutlined fontSize="small" />}
                                             />
                                         </Tooltip>

@@ -18,7 +18,7 @@ interface InventoryDialogProps {
     handleClose: () => void;
     isViewMode: boolean;
     inventoryDialogData: InventoryData | {};
-    // onSubmit: (values: InventoryData) => void;
+    onSubmit: (values: InventoryData) => void;
 }
 
 const DashboardDialog: React.FC<InventoryDialogProps> = ({
@@ -26,7 +26,7 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
     handleClose,
     isViewMode,
     inventoryDialogData,
-    // onSubmit,
+    onSubmit,
 }) => {
     const isEditMode = Object.keys(inventoryDialogData).length > 0;
 
@@ -62,7 +62,7 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
             <DialogContent>
                 <Form
                     initialValues={inventoryDialogData}
-                    onSubmit={() => { }}
+                    onSubmit={onSubmit}
                     render={({ handleSubmit, values }) => (
                         <form onSubmit={handleSubmit}>
                             <Box

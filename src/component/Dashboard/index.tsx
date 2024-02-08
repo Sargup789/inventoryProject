@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { InventoryData } from "../../../pages";
 import DashboardTable from "./Dashboardtable";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import DashboardDialog from "./DashboardDialog";
 import Layout from "../Layout";
 
@@ -22,15 +22,21 @@ const DashboardIndex = ({ data: initialData }: Props) => {
         setIsViewMode(true);
     }
 
-    const editInventory = (zone: InventoryData) => {
-        setInventoryDialogData(zone);
-        setAddInventoryDialogOpen(true);
+    const editInventory = (updatedInventory: InventoryData) => {
+        const newData = data.map((item) => {
+            if (item.id === updatedInventory.id) {
+                return updatedInventory;
+            }
+            return item;
+        });
+        setData(newData);
+        handleClose();
     };
 
     const deleteInventory = (index: number) => {
         const newData = [...data];
         newData.splice(index, 1);
-        setData(newData); // Assuming you have a state variable 'data' and its setter 'setData' to update the data after deletion
+        setData(newData);
     };
 
     const handleClose = () => {
@@ -55,7 +61,7 @@ const DashboardIndex = ({ data: initialData }: Props) => {
                         isViewMode={isViewMode}
                         inventoryDialogData={inventoryDialogData}
                         handleClose={handleClose}
-                    // onSubmit={onSubmit}
+                        onSubmit={editInventory}
                     />
                 </div>
             </QueryClientProvider>
