@@ -16,7 +16,6 @@ import { InventoryData } from "../../../pages";
 interface InventoryDialogProps {
     open: boolean;
     handleClose: () => void;
-    isViewMode: boolean;
     inventoryDialogData: InventoryData | {};
     onSubmit: (values: InventoryData) => void;
 }
@@ -24,7 +23,6 @@ interface InventoryDialogProps {
 const DashboardDialog: React.FC<InventoryDialogProps> = ({
     open,
     handleClose,
-    isViewMode,
     inventoryDialogData,
     onSubmit,
 }) => {
@@ -130,7 +128,7 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
                                 </Field>
                             </Box>
                             <DialogActions>
-                                {!isViewMode && <Button
+                                <Button
                                     style={{
                                         borderRadius: 15,
                                         backgroundColor: "#90EE90",
@@ -140,7 +138,7 @@ const DashboardDialog: React.FC<InventoryDialogProps> = ({
                                     type="submit"
                                 >
                                     Save
-                                </Button>}
+                                </Button>
                             </DialogActions>
                         </form>
                     )}

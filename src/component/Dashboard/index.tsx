@@ -14,22 +14,15 @@ const DashboardIndex = ({ data: initialData }: Props) => {
     const [data, setData] = useState<InventoryData[]>(initialData);
     const [addInventoryDialogOpen, setAddInventoryDialogOpen] = useState(false);
     const [inventoryDialogData, setInventoryDialogData] = useState<InventoryData | {}>({});
-    const [isViewMode, setIsViewMode] = useState(false);
 
     const viewInventory = (zone: InventoryData) => {
         setInventoryDialogData(zone);
         setAddInventoryDialogOpen(true);
-        setIsViewMode(true);
     }
 
     const editInventory = (updatedInventory: InventoryData) => {
-        const newData = data.map((item) => {
-            if (item.id === updatedInventory.id) {
-                return updatedInventory;
-            }
-            return item;
-        });
-        setData(newData);
+        const index = data.findIndex((item) => item.name === updatedInventory.name);
+        data[index] = updatedInventory;
         handleClose();
     };
 
@@ -42,7 +35,6 @@ const DashboardIndex = ({ data: initialData }: Props) => {
     const handleClose = () => {
         setAddInventoryDialogOpen(false);
         setInventoryDialogData({});
-        setIsViewMode(false);
     };
 
     return (
@@ -58,7 +50,6 @@ const DashboardIndex = ({ data: initialData }: Props) => {
                     />
                     <DashboardDialog
                         open={addInventoryDialogOpen}
-                        isViewMode={isViewMode}
                         inventoryDialogData={inventoryDialogData}
                         handleClose={handleClose}
                         onSubmit={editInventory}
