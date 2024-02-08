@@ -11,7 +11,7 @@ import {
     Typography,
 } from "@mui/material";
 import { Form, Field } from "react-final-form";
-import { InventoryData } from "../../pages";
+import { InventoryData } from "../../../pages";
 
 interface InventoryDialogProps {
     open: boolean;

@@ -1,9 +1,10 @@
 import { QueryClient, QueryClientProvider } from "react-query";
-import { InventoryData } from "../../pages";
+import { InventoryData } from "../../../pages";
 import DashboardTable from "./Dashboardtable";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import DashboardDialog from "./DashboardDialog";
+import Layout from "../Layout";
 
 type Props = {
     data: InventoryData[];
@@ -33,23 +34,25 @@ const DashboardIndex = ({ data }: Props) => {
     };
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <div className="m-6">
-                <Typography><h2>Inventory stats</h2></Typography>
-                <DashboardTable
-                    data={data}
-                    viewInventory={viewInventory}
-                    editInventory={editInventory}
-                />
-                <DashboardDialog
-                    open={addInventoryDialogOpen}
-                    isViewMode={isViewMode}
-                    inventoryDialogData={inventoryDialogData}
-                    handleClose={handleClose}
-                // onSubmit={onSubmit}
-                />
-            </div>
-        </QueryClientProvider>
+        <Layout>
+            <QueryClientProvider client={queryClient}>
+                <div className="mx-12 h-screen py-6">
+                    <h2 className="text-white text-4xl mb-12">Inventory stats</h2>
+                    <DashboardTable
+                        data={data}
+                        viewInventory={viewInventory}
+                        editInventory={editInventory}
+                    />
+                    <DashboardDialog
+                        open={addInventoryDialogOpen}
+                        isViewMode={isViewMode}
+                        inventoryDialogData={inventoryDialogData}
+                        handleClose={handleClose}
+                    // onSubmit={onSubmit}
+                    />
+                </div>
+            </QueryClientProvider>
+        </Layout>
     )
 }
 

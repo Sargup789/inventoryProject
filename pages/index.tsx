@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DashboardIndex from "../component/Dashboard";
+import DashboardIndex from "../src/component/Dashboard";
 
 export interface InventoryData {
      name: string;

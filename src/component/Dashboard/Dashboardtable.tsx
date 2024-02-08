@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import * as React from 'react';
-import { InventoryData } from '../../pages';
+import { InventoryData } from '../../../pages';
 
 type Props = {
     data: InventoryData[];
@@ -47,32 +47,36 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                     pt: 2,
                 }}
             >
-                <Card>
+                <Card sx={{ bgcolor: 'green' }}>
                     <CardContent>
-                        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-                            <b>Total product: {totalProductCount}</b>
-                        </Typography>
+                        <div className='flex flex-col text-white'>
+                            <p className='text-md'>Total product:</p>
+                            <p className='text-4xl'>{totalProductCount}</p>
+                        </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card sx={{ bgcolor: 'green' }}>
                     <CardContent>
-                        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-                            <b>Total store value: ${totalStoreValue.toFixed(2)}</b>
-                        </Typography>
+                        <div className='flex flex-col text-white'>
+                            <p className='text-md'>Total store value:</p>
+                            <p className='text-4xl'>${totalStoreValue.toFixed(2)}</p>
+                        </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card sx={{ bgcolor: 'green' }}>
                     <CardContent>
-                        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-                            <b>Out of stocks: {outOfStockCount}</b>
-                        </Typography>
+                        <div className='flex flex-col text-white'>
+                            <p className='text-md'>Out of stocks:</p>
+                            <p className='text-4xl'>{outOfStockCount}</p>
+                        </div>
                     </CardContent>
                 </Card>
-                <Card>
+                <Card sx={{ bgcolor: 'green' }}>
                     <CardContent>
-                        <Typography sx={{ fontSize: 18 }} color="text.secondary" gutterBottom>
-                            <b>No of Category: {uniqueCategories.length}</b>
-                        </Typography>
+                        <div className='flex flex-col text-white'>
+                            <p className='text-md'>No of Category:</p>
+                            <p className='text-4xl'>{uniqueCategories.length}</p>
+                        </div>
                     </CardContent>
                 </Card>
             </Box>
