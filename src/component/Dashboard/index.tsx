@@ -4,15 +4,14 @@ import DashboardTable from "./Dashboardtable";
 import { useContext, useState } from "react";
 import DashboardDialog from "./DashboardDialog";
 import Layout from "../Layout";
-import AuthContext from "../../AuthContext"
 
 type Props = {
     data: InventoryData[];
 };
 
 const queryClient = new QueryClient();
-const DashboardIndex = ({ data }: Props) => {
-    const { isAdmin } = useContext(AuthContext);
+const DashboardIndex = ({ data: initialData }: Props) => {
+    const [data, setData] = useState<InventoryData[]>(initialData);
     const [addInventoryDialogOpen, setAddInventoryDialogOpen] = useState(false);
     const [inventoryDialogData, setInventoryDialogData] = useState<InventoryData | {}>({});
     const [isViewMode, setIsViewMode] = useState(false);
@@ -28,6 +27,12 @@ const DashboardIndex = ({ data }: Props) => {
         setAddInventoryDialogOpen(true);
     };
 
+    const deleteInventory = (index: number) => {
+        const newData = [...data];
+        newData.splice(index, 1);
+        setData(newData); // Assuming you have a state variable 'data' and its setter 'setData' to update the data after deletion
+    };
+
     const handleClose = () => {
         setAddInventoryDialogOpen(false);
         setInventoryDialogData({});
@@ -36,23 +41,24 @@ const DashboardIndex = ({ data }: Props) => {
 
     return (
         <Layout>
-        <QueryClientProvider client={queryClient}>
-            <div className="mx-12 h-screen py-6">
-                <h2 className="text-white text-4xl mb-12">Inventory stats</h2>
-                <DashboardTable
-                    data={data}
-                    viewInventory={viewInventory}
-                    editInventory={editInventory}
-                />
-                <DashboardDialog
-                    open={addInventoryDialogOpen}
-                    isViewMode={isViewMode}
-                    inventoryDialogData={inventoryDialogData}
-                    handleClose={handleClose}
-                // onSubmit={onSubmit}
-                />
-            </div>
-        </QueryClientProvider>
+            <QueryClientProvider client={queryClient}>
+                <div className="mx-12 h-screen py-6">
+                    <h2 className="text-white text-4xl mb-12">Inventory stats</h2>
+                    <DashboardTable
+                        data={data}
+                        viewInventory={viewInventory}
+                        editInventory={editInventory}
+                        deleteInventory={deleteInventory}
+                    />
+                    <DashboardDialog
+                        open={addInventoryDialogOpen}
+                        isViewMode={isViewMode}
+                        inventoryDialogData={inventoryDialogData}
+                        handleClose={handleClose}
+                    // onSubmit={onSubmit}
+                    />
+                </div>
+            </QueryClientProvider>
         </Layout>
     )
 }

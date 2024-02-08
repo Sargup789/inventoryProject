@@ -20,9 +20,10 @@ type Props = {
     data: InventoryData[];
     editInventory: (data: InventoryData) => void
     viewInventory: (data: InventoryData) => void;
+    deleteInventory: (index: number) => void;
 };
 
-export default function DashboardTable({ data, editInventory, viewInventory }: Props) {
+export default function DashboardTable({ data, editInventory, viewInventory, deleteInventory }: Props) {
 
     const { isAdmin } = useContext(AuthContext);
     const [disabledRows, setDisabledRows] = useState<Set<number>>(new Set());
@@ -65,6 +66,10 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
         return getActiveRowsData().reduce((total, item) => {
             return total + calculateValue(item.price, item.quantity);
         }, 0);
+    };
+
+    const deleteRow = (index: number) => {
+        deleteInventory(index);
     };
 
     return (
@@ -178,7 +183,7 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                                                 size="small"
                                                 sx={{ color: 'red', mr: 0.5 }}
                                                 disabled={isRowDisabled(index) || isAdmin}
-                                                onClick={() => { }}
+                                                onClick={() => deleteRow(index)}
                                                 children={<DeleteOutline fontSize="small" />}
                                             />
                                         </Tooltip>
