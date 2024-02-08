@@ -5,7 +5,7 @@ import React, { ReactNode } from 'react'
 
 type Props = { children: ReactNode }
 
-const Layout = ({children}: Props) => {
+const Layout = ({ children }: Props) => {
   const [isAdmin, setIsAdmin] = React.useState(true);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,17 +14,17 @@ const Layout = ({children}: Props) => {
 
   return (
     <AuthContext.Provider value={{ isAdmin }}>
-    <div className='bg-black'>
-      <div className='sticky h-[50px] w-full justify-end items-center flex'>
-      <Stack direction="row" spacing={1} alignItems="center" sx={{marginRight:'5rem'}}>
-        <Typography sx={{color:'white'}}>admin</Typography>
-        <Switch inputProps={{ 'aria-label': 'ant design' }} onChange={handleChange}/>
-        <Typography sx={{color:'white'}}>user</Typography>
-      </Stack>
-      <LogoutOutlined sx={{color:'white', marginRight:'2rem'}}/>
-      </div>        {children}
-</div>
-      </AuthContext.Provider>
+      <div className='bg-black'>
+        <div className='sticky h-[50px] w-full justify-end items-center flex'>
+          <Stack direction="row" spacing={1} alignItems="center" sx={{ marginRight: '5rem' }}>
+            <Typography sx={{ color: 'white' }}>admin</Typography>
+            <Switch inputProps={{ 'aria-label': 'ant design' }} onChange={handleChange} />
+            <Typography sx={{ color: 'white' }}>user</Typography>
+          </Stack>
+          <LogoutOutlined sx={{ color: 'white', marginRight: '2rem' }} />
+        </div>        {children}
+      </div>
+    </AuthContext.Provider>
   )
 }
 

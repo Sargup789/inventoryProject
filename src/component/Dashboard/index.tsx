@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { InventoryData } from "../../../pages";
 import DashboardTable from "./Dashboardtable";
-import { Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DashboardDialog from "./DashboardDialog";
 import Layout from "../Layout";
+import AuthContext from "../../AuthContext"
 
 type Props = {
     data: InventoryData[];
@@ -12,6 +12,7 @@ type Props = {
 
 const queryClient = new QueryClient();
 const DashboardIndex = ({ data }: Props) => {
+    const { isAdmin } = useContext(AuthContext);
     const [addInventoryDialogOpen, setAddInventoryDialogOpen] = useState(false);
     const [inventoryDialogData, setInventoryDialogData] = useState<InventoryData | {}>({});
     const [isViewMode, setIsViewMode] = useState(false);
@@ -35,23 +36,23 @@ const DashboardIndex = ({ data }: Props) => {
 
     return (
         <Layout>
-            <QueryClientProvider client={queryClient}>
-                <div className="mx-12 h-screen py-6">
-                    <h2 className="text-white text-4xl mb-12">Inventory stats</h2>
-                    <DashboardTable
-                        data={data}
-                        viewInventory={viewInventory}
-                        editInventory={editInventory}
-                    />
-                    <DashboardDialog
-                        open={addInventoryDialogOpen}
-                        isViewMode={isViewMode}
-                        inventoryDialogData={inventoryDialogData}
-                        handleClose={handleClose}
-                    // onSubmit={onSubmit}
-                    />
-                </div>
-            </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>
+            <div className="mx-12 h-screen py-6">
+                <h2 className="text-white text-4xl mb-12">Inventory stats</h2>
+                <DashboardTable
+                    data={data}
+                    viewInventory={viewInventory}
+                    editInventory={editInventory}
+                />
+                <DashboardDialog
+                    open={addInventoryDialogOpen}
+                    isViewMode={isViewMode}
+                    inventoryDialogData={inventoryDialogData}
+                    handleClose={handleClose}
+                // onSubmit={onSubmit}
+                />
+            </div>
+        </QueryClientProvider>
         </Layout>
     )
 }

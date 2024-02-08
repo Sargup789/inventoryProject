@@ -47,69 +47,70 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                     pt: 2,
                 }}
             >
-                <Card sx={{ bgcolor: 'green' }}>
+                <Card sx={{bgcolor:'green'}}>
                     <CardContent>
-                        <div className='flex flex-col text-white'>
+                            <div className='flex flex-col text-white'>
                             <p className='text-md'>Total product:</p>
                             <p className='text-4xl'>{totalProductCount}</p>
-                        </div>
+                            </div>
                     </CardContent>
                 </Card>
-                <Card sx={{ bgcolor: 'green' }}>
+                <Card sx={{bgcolor:'green'}}>
                     <CardContent>
-                        <div className='flex flex-col text-white'>
+                    <div className='flex flex-col text-white'>
                             <p className='text-md'>Total store value:</p>
                             <p className='text-4xl'>${totalStoreValue.toFixed(2)}</p>
-                        </div>
+                            </div>
                     </CardContent>
                 </Card>
-                <Card sx={{ bgcolor: 'green' }}>
+                <Card sx={{bgcolor:'green'}}>
                     <CardContent>
-                        <div className='flex flex-col text-white'>
+                    <div className='flex flex-col text-white'>
                             <p className='text-md'>Out of stocks:</p>
                             <p className='text-4xl'>{outOfStockCount}</p>
-                        </div>
+                            </div>
                     </CardContent>
                 </Card>
-                <Card sx={{ bgcolor: 'green' }}>
+                <Card sx={{bgcolor:'green'}}>
                     <CardContent>
-                        <div className='flex flex-col text-white'>
+                    <div className='flex flex-col text-white'>
                             <p className='text-md'>No of Category:</p>
                             <p className='text-4xl'>{uniqueCategories.length}</p>
-                        </div>
+                            </div>
                     </CardContent>
                 </Card>
             </Box>
             <br />
-            <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <Paper sx={{ width: '100%', overflow: 'hidden', bgcolor: 'black' }}>
                 <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Category</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Price</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Quantity</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>Value</TableCell>
-                                <TableCell align='center' sx={{ fontWeight: 'bold' }}>ACTION</TableCell>
+                            <TableRow sx={{bgcolor:'black'}}>
+                                <TableCell sx={{ fontWeight: 'bold', bgcolor:'black', color:'white' }}>Name</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold', bgcolor:'black', color:'white' }}>Category</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold', bgcolor:'black', color:'white' }}>Price</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold', bgcolor:'black', color:'white' }}>Quantity</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold', bgcolor:'black', color:'white' }}>Value</TableCell>
+                                <TableCell sx={{ fontWeight: 'bold', bgcolor:'black', color:'white' }}>ACTION</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {data.map((el) => (
                                 <TableRow  >
-                                    <TableCell component="th" scope="row">
+                                    <TableCell component="th" scope="row" sx={{color:'white'}}>
                                         {el.name}
                                     </TableCell>
-                                    <TableCell align='center'>{el.category}</TableCell>
-                                    <TableCell align='center'>
+                                    <TableCell sx={{color:'white'}}>{el.category}</TableCell>
+                                    <TableCell sx={{color:'white'}}>
                                         {el.price}
                                     </TableCell>
-                                    <TableCell align='center'>{el.quantity}</TableCell>
-                                    <TableCell align='center'>${calculateValue(el.price, el.quantity)}</TableCell>
-                                    <TableCell align='center'>
+                                    <TableCell sx={{color:'white'}}>{el.quantity}</TableCell>
+                                    <TableCell sx={{color:'white'}}>${calculateValue(el.price, el.quantity)}</TableCell>
+                                    <TableCell>
                                         <Tooltip title="View" followCursor>
                                             <IconButton
                                                 size="small"
+                                                sx={{color:'white', mr: 0.5}}
                                                 onClick={() => viewInventory(el as InventoryData)}
                                                 children={<RemoveRedEyeOutlined fontSize="small" />}
                                             />
@@ -117,9 +118,8 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                                         <Tooltip title="Edit" followCursor>
                                             <IconButton
                                                 size="small"
-                                                sx={{
-                                                    mr: 0.5,
-                                                }}
+                                                sx={{color:'white', mr: 0.5}}
+
                                                 onClick={() => editInventory(el as InventoryData)}
                                                 children={<EditOutlined fontSize="small" />}
                                             />
@@ -127,6 +127,7 @@ export default function DashboardTable({ data, editInventory, viewInventory }: P
                                         <Tooltip title="Delete" followCursor>
                                             <IconButton
                                                 size="small"
+                                                sx={{color:'white', mr: 0.5}}
                                                 onClick={() => { }}
                                                 children={<DeleteOutline fontSize="small" />}
                                             />
